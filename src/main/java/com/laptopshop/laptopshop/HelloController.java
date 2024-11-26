@@ -15,7 +15,7 @@ public class HelloController {
         return "Only user can access this page!";
     }
 
-    @GetMapping("admin")
+    @GetMapping("/admin")
     public String adminPage() {
         return "Only admin can access this page!";
     }
