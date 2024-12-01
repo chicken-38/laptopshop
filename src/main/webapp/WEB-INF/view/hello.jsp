@@ -18,7 +18,7 @@
             <h1>
                 ${message}
             </h1>
-            <a href="admin/user">go to add user</a>
+            <a href="/admin/user/create">go to add user</a>
             <button>
                 Submit
             </button>

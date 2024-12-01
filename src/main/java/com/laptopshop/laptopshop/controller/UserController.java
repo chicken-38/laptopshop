@@ -2,9 +2,10 @@ package com.laptopshop.laptopshop.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.laptopshop.laptopshop.domain.User;
@@ -25,15 +26,16 @@ public class UserController {
         return "hello";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "admin/user")
-    public String getCreateUserPage() {
+    @GetMapping("admin/user/create")
+    public String getCreateUserPage(Model model) {
+        model.addAttribute("newUser", new User());
         return "admin/user/create";
     }
 
-    @RequestMapping(value = "admin/user", method = RequestMethod.POST)
-    public String requestMethodName(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
-        System.out.println(user.toString());
-        redirectAttributes.addFlashAttribute("message", "Add user successfully!");
+    @PostMapping("admin/user/create")
+    public String createUser(@ModelAttribute("newUser") User newUser, RedirectAttributes redirectAttributes) {
+        System.out.println(newUser.toString());
+        redirectAttributes.addFlashAttribute("message", "Successfully create a new user!");
         return "redirect:/";
     }
 
