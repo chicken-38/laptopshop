@@ -14,7 +14,6 @@
         </head>
 
         <body>
-            hello from jsp
             <h1>
                 ${message}
             </h1>
