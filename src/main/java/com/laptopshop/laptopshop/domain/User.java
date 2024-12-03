@@ -27,6 +27,14 @@ public class User {
         this.phone = phone;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -67,11 +75,10 @@ public class User {
         this.phone = phone;
     }
 
-    // @Override
-    // public String toString() {
-    // return "User [id=" + id + ", email=" + email + ", password=" + password + ",
-    // fullName=" + fullName
-    // + ", address=" + address + ", phone=" + phone + "]";
-    // }
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", email=" + email + ", password=" + password + ", fullName=" + fullName
+                + ", address=" + address + ", phone=" + phone + "]";
+    }
 
 }
