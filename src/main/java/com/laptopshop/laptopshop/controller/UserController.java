@@ -1,7 +1,6 @@
 package com.laptopshop.laptopshop.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,15 +24,8 @@ public class UserController {
 
     @GetMapping("/admin/user/{id}")
     public String getUserDetailPage(@PathVariable() long id, Model model) {
-        Optional<User> userOptional = this.userService.getUserById(id);
-        userOptional.ifPresentOrElse(value -> {
-            model.addAttribute("user", value);
-            System.out.println(value);
-        },
-                () -> {
-                    model.addAttribute("message", "User not found!");
-                    model.addAttribute("id", id);
-                });
+        this.userService.getUserById(id).ifPresentOrElse(value -> model.addAttribute("user", value),
+                () -> model.addAttribute("message", "User not found!"));
         return "admin/user/show";
     }
 
