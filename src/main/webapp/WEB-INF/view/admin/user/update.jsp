@@ -6,7 +6,14 @@
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Table Users</title>
+                <title>
+                    <c:if test="${not empty message}">
+                        ${message}
+                    </c:if>
+                    <c:if test="${empty message}">
+                        Update Users
+                    </c:if>
+                </title>
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
                 <!-- Latest compiled JavaScript -->
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -35,36 +42,34 @@
                         </div>
                     </c:if>
                     <div class="row">
-                        <div class="col-12 mx-auto">
-                            <div class="d-flex justify-content-between">
-                                <h3>Table users</h3>
-                                <a href="/admin/user/create" class="btn btn-primary">Create a user</a>
-                            </div>
+                        <div class="col-md-6 col-12 mx-auto">
+                            <h3>Update a user</h3>
                             <hr>
-                            <table class="table table-bordered table-hover align-middle text-center">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col" class="w-25">Email</th>
-                                        <th scope="col">Full Name</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="user" items="${users}">
-                                        <tr>
-                                            <td>${user.id}</td>
-                                            <td>${user.email}</td>
-                                            <td>${user.fullName}</td>
-                                            <td><a href="/admin/user/${user.id}" class="btn btn-success">View</a>
-                                                <a href="/admin/user/update/${user.id}"
-                                                    class="btn btn-warning mx-2">Update</a>
-                                                <a href="" class="btn btn-danger">Delete</a>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
+                            <form:form action="/admin/user/update" method="post" modelAttribute="user">
+                                <div class="mb-3" style="display: none">
+                                    <label class="form-label">ID</label>
+                                    <form:input type="text" class="form-control" path="id" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <form:input type="email" class="form-control" path="email" disabled="true" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Phone Number</label>
+                                    <form:input type="text" class="form-control" path="phone" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Full Name</label>
+                                    <form:input type="text" class="form-control" path="fullName" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Address</label>
+                                    <form:input type="text" class="form-control" path="address" />
+                                </div>
+                                <button type="submit" class="btn btn-warning">Update</button>
+                                <button type="" class="btn btn-success"
+                                    onclick="window.location.href='/admin/user'">Cancel</button>
+                            </form:form>
                         </div>
                     </div>
                 </div>

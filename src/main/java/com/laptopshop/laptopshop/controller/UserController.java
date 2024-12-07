@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.laptopshop.laptopshop.domain.User;
 import com.laptopshop.laptopshop.service.UserService;
@@ -22,16 +23,36 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PostMapping("/admin/user/update")
+    public String updateUser(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes) {
+        this.userService.getUserById(user.getId()).ifPresentOrElse(currentUser -> {
+            currentUser.setFullName(user.getFullName());
+            currentUser.setAddress(user.getAddress());
+            currentUser.setPhone(user.getPhone());
+            this.userService.handleSaveUser(currentUser);
+        }, () -> redirectAttributes.addFlashAttribute("message", "User update failed!"));
+        return "redirect:/admin/user";
+    }
+
+    @GetMapping("/admin/user/update/{id}")
+    public String getMethodName(Model model, @PathVariable long id) {
+        this.userService.getUserById(id).ifPresentOrElse(currentUser -> model.addAttribute("user", currentUser),
+                () -> {
+                    model.addAttribute("message", "User not found!");
+                    model.addAttribute("user", new User());
+                });
+        return "admin/user/update";
+    }
+
     @GetMapping("/admin/user/{id}")
     public String getUserDetailPage(@PathVariable() long id, Model model) {
-        this.userService.getUserById(id).ifPresentOrElse(value -> model.addAttribute("user", value),
+        this.userService.getUserById(id).ifPresentOrElse(currentUser -> model.addAttribute("user", currentUser),
                 () -> model.addAttribute("message", "User not found!"));
         return "admin/user/show";
     }
 
     @RequestMapping("/")
     public String getHomePage(Model model) {
-        // List<User> arrUsers = this.userService.getAllUsersByEmail("1@gmail.com");
         model.addAttribute("message", "Hello World form Spring Boot!");
         return "hello";
     }
