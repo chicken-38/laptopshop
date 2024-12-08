@@ -1,4 +1,4 @@
-package com.laptopshop.laptopshop.controller;
+package com.laptopshop.laptopshop.controller.admin;
 
 import java.util.List;
 
@@ -21,6 +21,16 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping("/admin/user/delete/{id}")
+    public String getDeleteUserPage(Model model, @PathVariable() long id) {
+        this.userService.getUserById(id).ifPresentOrElse(user -> model.addAttribute("user", user),
+                () -> {
+                    model.addAttribute("message", "User not found!");
+                    model.addAttribute("user", new User());
+                });
+        return "admin/user/delete";
     }
 
     @PostMapping("/admin/user/update")
@@ -48,7 +58,7 @@ public class UserController {
     public String getUserDetailPage(@PathVariable() long id, Model model) {
         this.userService.getUserById(id).ifPresentOrElse(currentUser -> model.addAttribute("user", currentUser),
                 () -> model.addAttribute("message", "User not found!"));
-        return "admin/user/show";
+        return "admin/user/detail";
     }
 
     @RequestMapping("/")
@@ -73,7 +83,7 @@ public class UserController {
     public String getUserPage(Model model) {
         List<User> users = this.userService.getAllUsers();
         model.addAttribute("users", users);
-        return "admin/user/table-user";
+        return "admin/user/show";
     }
 
 }

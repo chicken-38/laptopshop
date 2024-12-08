@@ -26,7 +26,7 @@
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                                     <li class="breadcrumb-item"><a href="/admin/user">Users</a></li>
-                                    <li class="breadcrumb-item active">Create</li>
+                                    <li class="breadcrumb-item active">View</li>
                                 </ol>
                                 <c:if test="${not empty message}">
                                     <div class="modal fade" id="notFoundModal" tabindex="-1" aria-hidden="true">
@@ -47,35 +47,26 @@
                                     </div>
                                 </c:if>
                                 <div class="row">
-                                    <div class="col-md-6 col-12 mx-auto">
-                                        <h3>Update a user</h3>
+                                    <div class="col-6 mx-auto">
+                                        <h3>User Detail with id = ${id}</h3>
                                         <hr>
-                                        <form:form action="/admin/user/update" method="post" modelAttribute="user">
-                                            <div class="mb-3" style="display: none">
-                                                <label class="form-label">ID</label>
-                                                <form:input type="text" class="form-control" path="id" />
+                                        <c:if test="${not empty message}">
+                                            <div>${message}</div>
+                                        </c:if>
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <b>User information</b>
                                             </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">Email</label>
-                                                <form:input type="email" class="form-control" path="email"
-                                                    disabled="true" />
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">Phone Number</label>
-                                                <form:input type="text" class="form-control" path="phone" />
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">Full Name</label>
-                                                <form:input type="text" class="form-control" path="fullName" />
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">Address</label>
-                                                <form:input type="text" class="form-control" path="address" />
-                                            </div>
-                                            <button type="submit" class="btn btn-warning mb-3">Update</button>
-                                            <button type="button" class="btn btn-success mb-3 mx-2"
-                                                onclick="window.location.href='/admin/user'">Cancel</button>
-                                        </form:form>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item"><b>ID:</b> ${user.id}</li>
+                                                <li class="list-group-item"><b>Email:</b> ${user.email}</li>
+                                                <li class="list-group-item"><b>Full Name:</b> ${user.fullName}</li>
+                                                <li class="list-group-item"><b>Address:</b> ${user.address}</li>
+                                                <li class="list-group-item"><b>Phone Number:</b> ${user.phone}</li>
+                                            </ul>
+                                        </div>
+                                        <button class="btn btn-success my-3"
+                                            onclick="window.location.href='/admin/user'">Back</button>
                                     </div>
                                 </div>
                             </div>
