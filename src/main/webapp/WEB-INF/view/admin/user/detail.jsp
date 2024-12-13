@@ -10,7 +10,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
                 <meta name="author" content="Hỏi Dân IT" />
-                <title>Dashboard - Hỏi Dân IT</title>
+                <title>User Management</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
@@ -22,51 +22,48 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
-                                <h1 class="mt-4">Manage Users</h1>
+                                <h1 class="mt-4">User Management</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                                     <li class="breadcrumb-item"><a href="/admin/user">Users</a></li>
                                     <li class="breadcrumb-item active">View</li>
                                 </ol>
-                                <c:if test="${not empty message}">
-                                    <div class="modal fade" id="notFoundModal" tabindex="-1" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5">Notification:</h1>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <strong>${message}</strong>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-primary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </c:if>
                                 <div class="row">
                                     <div class="col-6 mx-auto">
-                                        <h3>User Detail with id = ${id}</h3>
-                                        <hr>
                                         <c:if test="${not empty message}">
-                                            <div>${message}</div>
-                                        </c:if>
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <b>User information</b>
+                                            <h3>${message}</h3>
+                                            <hr>
+                                            <div class="alert alert-danger">
+                                                You cannot view a user who does not exist!
                                             </div>
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item"><b>ID:</b> ${user.id}</li>
-                                                <li class="list-group-item"><b>Email:</b> ${user.email}</li>
-                                                <li class="list-group-item"><b>Full Name:</b> ${user.fullName}</li>
-                                                <li class="list-group-item"><b>Address:</b> ${user.address}</li>
-                                                <li class="list-group-item"><b>Phone Number:</b> ${user.phone}</li>
-                                            </ul>
-                                        </div>
-                                        <button class="btn btn-success my-3"
-                                            onclick="window.location.href='/admin/user'">Back</button>
+                                            <a class="btn btn-success" href="/admin/user">Back</a>
+                                        </c:if>
+                                        <c:if test="${empty message}">
+                                            <h3>User Information</h3>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <img src="${avatarURL}"
+                                                        class="object-fit-md-contain border rounded w-100 h-100" />
+                                                </div>
+                                                <div class=" col-md">
+                                                    <div class="card">
+                                                        <ul class="list-group list-group-flush">
+                                                            <li class="list-group-item"><b>ID:</b> ${user.id}</li>
+                                                            <li class="list-group-item"><b>Email:</b> ${user.email}</li>
+                                                            <li class="list-group-item"><b>Full Name:</b>
+                                                                ${user.fullName}</li>
+                                                            <li class="list-group-item"><b>Address:</b> ${user.address}
+                                                            </li>
+                                                            <li class="list-group-item"><b>Phone Number:</b>
+                                                                ${user.phone}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-success my-3"
+                                                onclick="window.location.href='/admin/user'">Back</button>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>
@@ -77,14 +74,6 @@
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                     crossorigin="anonymous"></script>
                 <script src="/js/script.js"></script>
-                <script>
-                    var message = '${ message }';
-                    console.log(message);
-                    if (message.trim() !== "") {
-                        console.log(message);
-                        document.addEventListener('DOMContentLoaded', (event) => { var myModal = new bootstrap.Modal(document.getElementById('notFoundModal')); myModal.show(); });
-                    }
-                </script>
             </body>
 
             </html>

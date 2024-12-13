@@ -3,33 +3,19 @@ package com.laptopshop.laptopshop.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Service;
-
+import com.laptopshop.laptopshop.domain.Role;
 import com.laptopshop.laptopshop.domain.User;
-import com.laptopshop.laptopshop.repository.UserRepository;
 
-@Service
-public class UserService {
-    private final UserRepository userRepository;
+public interface UserService {
+    public void handleSaveUser(User user);
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    public List<User> getAllUsers();
 
-    public void handleSaveUser(User user) {
-        this.userRepository.save(user);
-    }
+    public List<User> getAllUsersByEmail(String email);
 
-    public List<User> getAllUsers() {
-        return this.userRepository.findAll();
-    }
+    public Optional<User> getUserById(long id);
 
-    public List<User> getAllUsersByEmail(String email) {
-        return this.userRepository.findByEmail(email);
-    }
+    public void deleteUserById(long id);
 
-    public Optional<User> getUserById(long id) {
-        return this.userRepository.findById(id);
-    }
-
+    public List<Role> getAllRole();
 }
